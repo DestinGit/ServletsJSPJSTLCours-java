@@ -36,4 +36,10 @@
     <li>
         <a href="/ServletsJSPJSTLCours/Inscription">S'inscrire</a>
     </li>
+    <li>
+        |
+    </li>
+    <li>
+        <a href="/ServletsJSPJSTLCours/MonCompte">Mon compte</a>
+    </li>
 </ul>
