@@ -42,10 +42,6 @@ public class AuthentificationValidation extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-//        out.println(request.getParameter("pseudo"));
-//        out.println("<br>");
-//        out.println(request.getParameter("mdp"));
-        
 //        Connection lcn = Connexion.getConnectionMySQL("localhost", "cours", "3306", "root", "");
         // Récupération de la session courante
         HttpSession session = request.getSession();
@@ -64,14 +60,16 @@ public class AuthentificationValidation extends HttpServlet {
         } else {
             lsMessage = "Authentification OK";
             lsPseudo = ut.getPseudo();
-            System.out.println(lsPseudo);
-//            out.println("Ok");
         }
         
+        // sauvegarde du pseudo dans la session avec la clé pseudo
         session.setAttribute("pseudo", lsPseudo);
-        
+        // sauvegarde de lsMessage dans la requete avec pour clé "message"
         request.setAttribute("message", lsMessage); 
- 
+        
+        /*
+        * redirection vers la page "Authentification.jsp"
+        */
         ServletContext sc = getServletContext(); 
         RequestDispatcher rd = sc.getRequestDispatcher("/jsp/Authentification.jsp"); 
         rd.forward(request, response);         
