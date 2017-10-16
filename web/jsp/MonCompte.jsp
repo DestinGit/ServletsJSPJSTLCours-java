@@ -19,7 +19,7 @@
         </nav>
         <article>
 
-            <h1>Se Connecter</h1>
+            <h1>Mon Compte</h1>
             <br>
 
             <form action="/ServletsJSPJSTLCours/AuthentificationValidation" method="POST">

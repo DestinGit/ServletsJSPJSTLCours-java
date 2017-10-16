@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,8 +33,14 @@ public class MonCompte extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String lsUrl = "MonCompte.jsp";
+        String lsUrl;
+        HttpSession session = request.getSession();
+        if (session.getAttribute("pseudo") != null && !session.getAttribute("pseudo").toString().equals("")) {
+            lsUrl = "MonCompte.jsp";
+        } else {
+            request.setAttribute("message", "Vous devez être authentifié !!!");
+            lsUrl = "Authentification.jsp";
+        }
         getServletContext().getRequestDispatcher("/jsp/" + lsUrl).forward(request, response);
     }
 }

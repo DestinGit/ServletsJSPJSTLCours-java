@@ -64,10 +64,12 @@ public class AuthentificationValidation extends HttpServlet {
         } else {
             lsMessage = "Authentification OK";
             lsPseudo = ut.getPseudo();
+            System.out.println(lsPseudo);
 //            out.println("Ok");
         }
         
-        request.setAttribute("pseudo", lsPseudo);
+        session.setAttribute("pseudo", lsPseudo);
+        
         request.setAttribute("message", lsMessage); 
  
         ServletContext sc = getServletContext(); 
