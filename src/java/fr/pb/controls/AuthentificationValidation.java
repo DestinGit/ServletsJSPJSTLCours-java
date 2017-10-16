@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,25 +46,32 @@ public class AuthentificationValidation extends HttpServlet {
 //        out.println("<br>");
 //        out.println(request.getParameter("mdp"));
         
-        Connection lcn = Connexion.getConnectionMySQL("localhost", "cours", "3306", "root", "");
+//        Connection lcn = Connexion.getConnectionMySQL("localhost", "cours", "3306", "root", "");
+        // Récupération de la session courante
+        HttpSession session = request.getSession();
+        Connection lcn = (Connection)session.getAttribute("gcnx");
+        
         UtilisateursDAO dao = new UtilisateursDAO(lcn);
 
         Utilisateurs ut;
         ut = dao.selectOne(request.getParameter("pseudo"), request.getParameter("mdp"));
 
         String lsMessage = "";
-        
+        String lsPseudo;
         if (ut == null) {
-            lsMessage = "KO";
+            lsMessage = "Authentification KO";
+            lsPseudo = "";
         } else {
-            lsMessage = "KO";
+            lsMessage = "Authentification OK";
+            lsPseudo = ut.getPseudo();
 //            out.println("Ok");
         }
-
+        
+        request.setAttribute("pseudo", lsPseudo);
         request.setAttribute("message", lsMessage); 
  
         ServletContext sc = getServletContext(); 
-        RequestDispatcher rd = sc.getRequestDispatcher("/WEB-INF/jsp/Authentification.jsp"); 
+        RequestDispatcher rd = sc.getRequestDispatcher("/jsp/Authentification.jsp"); 
         rd.forward(request, response);         
     }
 
